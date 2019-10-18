@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, isDevMode} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, Subject} from "rxjs";
 import {Coords} from "../interfaces/coords";
@@ -16,14 +16,19 @@ export class CurrentWeatherService {
 
   constructor(private http: HttpClient) {
     this.get({
-      lat: 35,
-      lon: 139
+      lat: 19.427025,
+      lon: -99.167665
     });
   }
 
   get(coords: Coords) {
-    //let observable = this.http.get('assets/weather.json').subscribe(this.weatherSubject);
     let args: string = `?lat=${coords.lat}&lon=${coords.lon}&APPID=${environment.key}`;
-    let observable = this.http.get(this.endpoint+args).subscribe(this.weatherSubject);
+    let url = this.endpoint + args;
+
+    if(isDevMode()) {
+      url = 'assets/weather.json';
+    }
+
+    this.http.get(url).subscribe(this.weatherSubject);
   }
 }
