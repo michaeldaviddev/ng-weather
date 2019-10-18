@@ -1,0 +1,20 @@
+.card {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-template-rows: repeat(3,auto);
+  grid-template-areas:
+    "icon icon temperature temperature"
+    "lowtemp lowtemp hightemp hightemp"
+    "description description description description";
+}
+.card .temp {
+  grid-area: temperature;
+}
+.card .icon {
+  grid-area: icon;
+}
+.card .description {
+  grid-area: description;
+}
+
