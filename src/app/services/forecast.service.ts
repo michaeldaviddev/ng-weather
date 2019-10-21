@@ -22,11 +22,20 @@ export class ForecastService {
     });
   }
 
+  structureData(data: any) {
+    data.list.forEach(weatherObject => {
+      let date = new Date(weatherObject.dt * 1000);
+      let hours = date.getHours();
+      let month = date.getMonth();
+      let day = date.getDate();
+    });
+  }
+
   get(coords: Coords) {
     let args: string = `?lat=${coords.lat}&lon=${coords.lon}&APPID=${environment.key}&units=metric`;
     let url = this.endpoint + args;
 
-    if(isDevMode()) {
+    if (isDevMode()) {
       url = 'assets/forecast.json';
     }
 
