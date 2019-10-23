@@ -13,6 +13,6 @@ export class AppComponent {
 
   ngOnInit() {
     //this.forecastService.weather$.subscribe(console.log);
-    this.geolocationService.requestGeolocation();
+    //this.geolocationService.requestGeolocation();
   }
 }
