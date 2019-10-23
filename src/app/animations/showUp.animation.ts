@@ -1,4 +1,15 @@
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {animate, query, stagger, state, style, transition, trigger} from "@angular/animations";
+
+export const showUpStaggered = trigger('showUpCollection',[
+  transition('* => *',[
+    query(':enter',[
+      style({opacity: 0, transform: 'scaleY(0)'}),
+      stagger(100,[
+        animate(300, style({opacity: 1, transform: 'scaleY(1)'}))
+      ])
+    ],{optional: true})
+  ])
+]);
 
 export const showUp = trigger('showUpElement',[
   state('in',style({opacity: 1, transform: 'scaleY(1)'})),
