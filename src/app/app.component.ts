@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ForecastService} from "./services/forecast.service";
+import {GeolocationService} from "./services/geolocation.service";
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,10 @@ import {ForecastService} from "./services/forecast.service";
 export class AppComponent {
   title = 'weather';
 
-  constructor(private forecastService: ForecastService) {}
+  constructor(private geolocationService: GeolocationService) {}
 
   ngOnInit() {
-    this.forecastService.weather$.subscribe(console.log);
+    //this.forecastService.weather$.subscribe(console.log);
+    this.geolocationService.requestGeolocation();
   }
 }
