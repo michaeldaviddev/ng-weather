@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {Coords} from "../interfaces/coords";
+import {Observable, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocationService {
-
-  public coords$: Promise<Coords>;
+  public coordsSubject: Subject<Coords> = new Subject<Coords>();
+  public coords$: Observable<Coords> = this.coordsSubject.asObservable();
   public permission$: Promise<string>;
+  public coordsPromise: Promise<Coords>;
 
   constructor() {
     this.permission$ = (navigator as any).permissions.query({name:'geolocation'})
@@ -15,7 +17,12 @@ export class GeolocationService {
   }
 
   requestGeolocation() {
-    this.coords$ = this.getGeolocation();
+    if (!this.coordsPromise) {
+      this.coordsPromise = this.getGeolocation();
+    }
+    this.coordsPromise.then(coords => {
+      this.coordsSubject.next(coords);
+    });
   }
 
   getGeolocation(): Promise<Coords> {
