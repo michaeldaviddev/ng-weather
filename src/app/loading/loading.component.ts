@@ -6,13 +6,13 @@ import {CurrentWeatherService} from "../services/current-weather.service";
   selector: 'app-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss'],
-  animations: [loadingAnimation()]
+  animations: [loadingAnimation]
 })
 export class LoadingComponent implements OnInit {
   _elements: string[] = ['#ffebee','#ffcdd2','#ef9a9a','#e57373','#ef5350'];
   public elements: string[];
 
-  constructor(private currentWeatherService: CurrentWeatherService) { }
+  constructor(public currentWeatherService: CurrentWeatherService) { }
 
   ngOnInit() {
     this.set();
@@ -30,7 +30,7 @@ export class LoadingComponent implements OnInit {
     },100 * this._elements.length + 300);
   }
 
-  clear(){
+  clear() {
     this.elements = [];
     this.scheduleNextIteration();
   }
